@@ -5,32 +5,32 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { JwtGuard } from 'src/auth/jwt.guard';
 
-@Controller('users')
+@Controller('api/')
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
-  @Post()
+  @Post("user")
   create(@Body() user: User) {
     return this.usersService.create(user);
   }
 
-  @Get()
-  @UseGuards(JwtGuard)
+  @Get("users")
   findAll() {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
+  @Get('user/:id')
   findOne(@Param('id') id: number) {
     return this.usersService.findOne(id);
   }
 
-  @Put(':id')
+  @Put('user/:id')
   update(@Param('id') id: string, @Body() user: User) {
     return this.usersService.update(id, user);
   }
 
-  @Delete(':id')
+  @Delete('user/:id')
+  @UseGuards(JwtGuard)
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }
